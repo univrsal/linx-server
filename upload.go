@@ -92,7 +92,15 @@ func uploadPostHandler(c web.C, w http.ResponseWriter, r *http.Request) {
 	upReq.expiry = parseExpiry(r.PostFormValue("expires"))
 	upReq.accessKey = r.PostFormValue(accessKeyParamName)
 
-	if r.PostFormValue("randomize") == "true" {
+	var custom = r.PostFormValue("custom")
+	if len(custom) > 0 {
+		var t = filepath.Ext(upReq.filename)
+		if !strings.HasSuffix(custom, t) {
+			upReq.filename = custom + t
+		} else {
+			upReq.filename = r.PostFormValue("custom")
+		}
+	} else if r.PostFormValue("randomize") == "true" {
 		upReq.randomBarename = true
 	}
 

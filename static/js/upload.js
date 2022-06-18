@@ -59,9 +59,13 @@ Dropzone.options.dropzone = {
         file.uploadElement.setAttribute("style", 'background-image: -webkit-linear-gradient(left, #F2F4F7 ' + p + '%, #E2E2E2 ' + p + '%); background-image: -moz-linear-gradient(left, #F2F4F7 ' + p + '%, #E2E2E2 ' + p + '%); background-image: -ms-linear-gradient(left, #F2F4F7 ' + p + '%, #E2E2E2 ' + p + '%); background-image: -o-linear-gradient(left, #F2F4F7 ' + p + '%, #E2E2E2 ' + p + '%); background-image: linear-gradient(left, #F2F4F7 ' + p + '%, #E2E2E2 ' + p + '%)');
     },
     sending: function (file, xhr, formData) {
+        var custom = document.getElementById("custom").value;
         var randomize = document.getElementById("randomize");
         if (randomize != null) {
             formData.append("randomize", randomize.checked);
+        }
+        if (custom != null && custom.length > 0) {
+            formData.append("custom", custom);
         }
         formData.append("expires", document.getElementById("expires").value);
     },
